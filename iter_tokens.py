@@ -17,7 +17,10 @@ class Token:
             return NotImplemented
 
     def __repr__(self):
-        return f"Token({self.name}, {self.val})"
+        if self.name == "NUM":
+            return f"NUM({self.val})"
+        else:
+            return self.name
 
 
 def masterpat():
