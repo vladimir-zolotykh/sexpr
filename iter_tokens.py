@@ -3,6 +3,7 @@
 # PYTHON_ARGCOMPLETE_OK
 from typing import Iterator
 import re
+from textwrap import dedent
 
 
 class Token:
@@ -46,6 +47,26 @@ tokens = {
         "DIV": r"/",
     }.items()
 }
+
+
+def test_iter_tokens(capsys):
+    for tok in iter_tokens("2 + (3 * 4) + 5"):
+        print(tok)
+    assert capsys.readouterr().out == dedent(
+        """\
+NUM(2)
+PLUS
+LPAREN
+NUM(3)
+MUL
+NUM(4)
+RPAREN
+PLUS
+NUM(5)
+"""
+    )
+
+
 if __name__ == "__main__":
     for k in iter_tokens("2 + (3 * 4) + 5"):
         print(k)
