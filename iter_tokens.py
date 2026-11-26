@@ -10,25 +10,19 @@ class Token:
     _tokens = {}
 
     def __new__(cls, name, val=None, pat=None):
-        # print(cls, args, kwargs)
         tok = None
-        if name not in __class__._tokens:
+        if name not in cls._tokens:
             tok = super().__new__(cls)
             tok.name = name
             tok.val = val
             tok.pat = pat
         else:
-            tok = __class__._tokens[name]
+            tok = cls._tokens[name]
         if tok.val is None and val is not None:
             tok.val = val
-        if name == "NUM" and name in __class__._tokens:
-            del __class__._tokens[name]
+        if name == "NUM" and name in cls._tokens:
+            del cls._tokens[name]
         return tok
-
-    def __init__(self, name, *args, **kwargs):
-        pass
-        # self.name = name
-        # self.val = val
 
     def __eq__(self, other) -> bool:
         if isinstance(other, __class__):
@@ -47,6 +41,13 @@ def masterpat():
     for k, v in tokens.items():
         Token(k, pat=v)
     return "|".join(tokens.values())
+
+
+def test_masterpat():
+    assert (
+        masterpat()
+        == "(?P<NUM>\\d+)|(?P<WS>\\s+)|(?P<PLUS>\\+)|(?P<LPAREN>\\()|(?P<RPAREN>\\))|(?P<MINUS>-)|(?P<MUL>\\*)|(?P<DIV>/)"
+    )
 
 
 def iter_tokens(sexpr: str) -> Iterator[Token]:
