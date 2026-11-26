@@ -16,6 +16,7 @@ class Token:
             tok.name = name
             tok.val = val
             tok.pat = pat
+            cls._tokens[name] = tok
         else:
             tok = cls._tokens[name]
         if tok.val is None and val is not None:
@@ -55,6 +56,12 @@ def test_num():
     assert str(num) == "NUM(6)"
     num = Token("NUM", pat=r"(?P<NUM>\d+)", val=10)
     assert str(num) == "NUM(10)"
+
+
+def test_new_token(capsys):
+    ws1 = Token("WS", pat=r"(?P<WS>\s+)")
+    ws2 = Token("WS", pat=r"(?P<WS>\s+)")
+    assert ws1 is ws2
 
 
 def iter_tokens(sexpr: str) -> Iterator[Token]:
