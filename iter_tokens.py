@@ -50,6 +50,13 @@ def test_masterpat():
     )
 
 
+def test_num():
+    num = Token("NUM", pat=r"(?P<NUM>\d+)", val=6)
+    assert str(num) == "NUM(6)"
+    num = Token("NUM", pat=r"(?P<NUM>\d+)", val=10)
+    assert str(num) == "NUM(10)"
+
+
 def iter_tokens(sexpr: str) -> Iterator[Token]:
     for match in re.finditer(masterpat(), sexpr):
         if (grp := match.lastgroup) != "WS":
