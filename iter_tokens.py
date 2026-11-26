@@ -7,9 +7,28 @@ from textwrap import dedent
 
 
 class Token:
-    def __init__(self, name, val):
-        self.name = name
-        self.val = val
+    _tokens = {}
+
+    def __new__(cls, name, val=None, pat=None):
+        # print(cls, args, kwargs)
+        tok = None
+        if name not in __class__._tokens:
+            tok = super().__new__(cls)
+            tok.name = name
+            tok.val = val
+            tok.pat = pat
+        else:
+            tok = __class__._tokens[name]
+        if tok.val is None and val is not None:
+            tok.val = val
+        if name == "NUM" and name in __class__._tokens:
+            del __class__._tokens[name]
+        return tok
+
+    def __init__(self, name, *args, **kwargs):
+        pass
+        # self.name = name
+        # self.val = val
 
     def __eq__(self, other) -> bool:
         if isinstance(other, __class__):
@@ -25,13 +44,15 @@ class Token:
 
 
 def masterpat():
+    for k, v in tokens.items():
+        Token(k, pat=v)
     return "|".join(tokens.values())
 
 
 def iter_tokens(sexpr: str) -> Iterator[Token]:
     for match in re.finditer(masterpat(), sexpr):
         if (grp := match.lastgroup) != "WS":
-            yield Token(match.lastgroup, match.group(grp))
+            yield Token(match.lastgroup, val=match.group(grp))
 
 
 tokens = {
