@@ -3,7 +3,6 @@
 # PYTHON_ARGCOMPLETE_OK
 from typing import Iterator
 import re
-from textwrap import dedent
 
 
 class Token:
@@ -13,9 +12,7 @@ class Token:
         tok = None
         if name not in cls._tokens:
             tok = super().__new__(cls)
-            tok.name = name
-            tok.val = val
-            tok.pat = pat
+            tok.name, tok.val, tok.pat = name, val, pat
             cls._tokens[name] = tok
         else:
             tok = cls._tokens[name]
