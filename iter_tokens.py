@@ -13,13 +13,12 @@ class Token:
         if name not in cls._tokens:
             tok = super().__new__(cls)
             tok.name, tok.val, tok.pat = name, val, pat
-            cls._tokens[name] = tok
+            if name != "NUM":
+                cls._tokens[name] = tok
         else:
             tok = cls._tokens[name]
-        if tok.val is None and val is not None:
+        if val is not None:
             tok.val = val
-        if name == "NUM" and name in cls._tokens:
-            del cls._tokens[name]
         return tok
 
     def __eq__(self, other) -> bool:
