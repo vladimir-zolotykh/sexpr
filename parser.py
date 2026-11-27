@@ -12,8 +12,8 @@ class Parser:
         self.tok: Token | None = None
         self.tokens: Iterator[Token] = None
 
-    def parser(self, sexpr: str) -> Node:
-        self.tokens = iter_tokens(str)
+    def parse(self, sexpr: str) -> Node:
+        self.tokens = iter_tokens(sexpr)
         self._advance()
         return self.expr()
 
