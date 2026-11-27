@@ -21,15 +21,14 @@ class Parser:
         res: Node = self.term()
         while (tok := self.tok) and tok in (PLUS, MINUS):
             self._consume()
-            cls = {Plus: PLUS, Minus: MINUS}[tok]
-            res = cls(res, self.term())
+            res = (Plus if tok == PLUS else Minus)(res, self.term())
         return res
 
     def term(self) -> Node:
         res: Node = self.factor()
         while (tok := self.tok) and tok in (MUL, DIV):
             self._consume()
-            res = {Mul: MUL, Div: DIV}[tok](res, self.factor())
+            res = (Mul if tok == MUL else Div)(res, self.factor())
         return res
 
     def factor(self) -> Node:
@@ -39,7 +38,7 @@ class Parser:
             self._expect(RPAREN)
         else:
             res = Num(self.tok)
-            self._consume
+            self._consume()
         return res
 
     def _advance(self) -> Token:
