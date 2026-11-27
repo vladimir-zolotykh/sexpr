@@ -54,6 +54,15 @@ tokens = {
     }.items()
 }
 
+NUM = Token("NUM", r"\d+")
+WS = Token("WS", r"\s+")
+PLUS = Token("PLUS", r"\+")
+LPAREN = Token("LPAREN", r"\(")
+RPAREN = Token("RPAREN", r"\)")
+MINUS = Token("MINUS", r"-")
+MUL = Token("MUL", r"\*")
+DIV = Token("DIV", r"/")
+
 
 def iter_tokens(sexpr: str) -> Iterator[Token]:
     for match in re.finditer(masterpat(), sexpr):
