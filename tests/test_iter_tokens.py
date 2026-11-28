@@ -26,12 +26,6 @@ def test_symbol_argument_not_used():
         Symbol("WS", pat)
 
 
-# def test_new_symbol(capsys):
-#     ws1 = Symbol("WS", r"(?P<WS>\s+)")
-#     ws2 = Symbol("WS", r"(?P<WS>\s+)")
-#     assert ws1 is ws2
-
-
 def test_new_symbol2(capsys):
     ws1 = Symbol("WS")
     ws2 = Symbol("WS")
