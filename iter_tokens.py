@@ -17,7 +17,7 @@ class Symbol:
             cls._symbols[name] = sym
         else:
             if pat is not None:
-                warnings.warn(f"{pat!r} not used")
+                warnings.warn(f"{pat} not used")
             # pat is None
             sym = cls._symbols[name]
         return sym
