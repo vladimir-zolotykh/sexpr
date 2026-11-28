@@ -4,7 +4,7 @@
 
 from typing import Iterator
 from node import Node, Plus, Minus, Div, Mul, Num
-from iter_tokens import Token, iter_tokens, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN
+from iter_tokens import Token, iter_tokens, NUM, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN
 
 
 class Parser:

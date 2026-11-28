@@ -54,7 +54,7 @@ tokens = {
     }.items()
 }
 
-NUM = Token("NUM", pat=r"\d+")
+NUM = Token("NUM", r"\d+")
 WS = Token("WS", r"\s+")
 PLUS = Token("PLUS", r"\+")
 LPAREN = Token("LPAREN", r"\(")
