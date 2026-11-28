@@ -50,7 +50,11 @@ class Token:
             return NotImplemented
 
     def __repr__(self):
-        return f"{type(self).__name__}({repr(self.sym)}, {self.val!r})"
+        return (
+            f"NUM({self.val})"
+            if self.sym.name == "NUM"
+            else f"{type(self).__name__}({repr(self.sym)}, {self.val!r})"
+        )
 
 
 NUM = Symbol("NUM", r"\d+")
