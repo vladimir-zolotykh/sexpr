@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # PYTHON_ARGCOMPLETE_OK
+import operator
 
 
 class Node:
@@ -18,10 +19,13 @@ class Num:
         if isinstance(other, Num):
             return self.val == other.val
         else:
-            NotImplemented
+            return NotImplemented
+
+    def __float__(self):
+        return self.val
 
 
-class Operator(Node):
+class BinaryOp(Node):
     def __init__(self, left: Node, right: Node):
         self.left = left
         self.right = right
@@ -33,20 +37,23 @@ class Operator(Node):
         if isinstance(other, type(self)):
             return self.__dict__ == other.__dict__
         else:
-            NotImplemented
+            return NotImplemented
+
+    def __float__(self):
+        return self.op(float(self.left), float(self.right))
 
 
-class Plus(Operator):
-    pass
+class Plus(BinaryOp):
+    op = operator.add
 
 
-class Minus(Operator):
-    pass
+class Minus(BinaryOp):
+    op = operator.sub
 
 
-class Mul(Operator):
-    pass
+class Mul(BinaryOp):
+    op = operator.mul
 
 
-class Div(Operator):
-    pass
+class Div(BinaryOp):
+    op = operator.truediv

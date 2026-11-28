@@ -37,7 +37,7 @@ class Parser:
             res = self.expr()
             self._expect(RPAREN)
         else:
-            res = Num(self.tok)
+            res = Num(float(self.tok.val))
             self._consume()
         return res
 
@@ -57,3 +57,4 @@ class Parser:
 if __name__ == "__main__":
     n: Node = Parser().parse("2 + (3 * 4) + 5")
     print(n)
+    print(float(n))
