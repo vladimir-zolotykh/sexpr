@@ -22,8 +22,8 @@ def test_symbol_argument_not_used():
     with pytest.raises(UserWarning, match="foo not used"):
         Symbol("WS", "foo")
     pat = r"(?P<WS>\s+)"
-    with pytest.raises(UserWarning, match=re.escape(r"(?P<WS>\s+)" + " not used")):
-        Symbol("WS", r"(?P<WS>\s+)")
+    with pytest.raises(UserWarning, match=re.escape(pat + " not used")):
+        Symbol("WS", pat)
 
 
 # def test_new_symbol(capsys):
