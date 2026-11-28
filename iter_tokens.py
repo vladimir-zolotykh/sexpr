@@ -3,6 +3,7 @@
 # PYTHON_ARGCOMPLETE_OK
 from typing import Iterator
 import re
+import warnings
 
 
 class Symbol:
@@ -15,6 +16,8 @@ class Symbol:
             sym.pat = f"(?P<{name}>{pat})"
             cls._symbols[name] = sym
         else:
+            if pat is not None:
+                warnings.warn(f"{pat!r} not used")
             # pat is None
             sym = cls._symbols[name]
         return sym

@@ -18,9 +18,22 @@ def test_num():
     assert str(num) == "Token(Symbol('NUM'), 10)"
 
 
-def test_new_token(capsys):
-    ws1 = Token("WS", pat=r"(?P<WS>\s+)")
-    ws2 = Token("WS", pat=r"(?P<WS>\s+)")
+def test_symbol_argument_not_used():
+    # with pytest.raises(UserWarning, match=r"'(?P<WS>\s+)' not used"):
+    #     Symbol("WS", r"(?P<WS>\s+)")
+    with pytest.raises(UserWarning, match="'foo' not used"):
+        Symbol("WS", "foo")
+
+
+# def test_new_symbol(capsys):
+#     ws1 = Symbol("WS", r"(?P<WS>\s+)")
+#     ws2 = Symbol("WS", r"(?P<WS>\s+)")
+#     assert ws1 is ws2
+
+
+def test_new_symbol2(capsys):
+    ws1 = Symbol("WS")
+    ws2 = Symbol("WS")
     assert ws1 is ws2
 
 
