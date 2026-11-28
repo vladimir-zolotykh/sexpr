@@ -54,6 +54,11 @@ class Parser:
         self._consume()
 
 
+def test_parser():
+    n: Node = Parser().parse("2 + (3 * 4) + 5")
+    assert str(n) == "Plus(Plus(NUM(2), Mul(NUM(3), NUM(4))), NUM(5))"
+
+
 if __name__ == "__main__":
     n: Node = Parser().parse("2 + (3 * 4) + 5")
     print(n)
