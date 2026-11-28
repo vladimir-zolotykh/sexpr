@@ -44,6 +44,8 @@ class Token:
     def __eq__(self, other) -> bool:
         if isinstance(other, __class__):
             return self.__dict__ == other.__dict__
+        elif isinstance(other, Symbol):
+            return self.sym == other
         else:
             return NotImplemented
 
