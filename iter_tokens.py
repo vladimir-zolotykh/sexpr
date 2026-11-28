@@ -8,13 +8,14 @@ import re
 class Symbol:
     _symbols: dict[str, "Symbol"] = {}
 
-    def __new__(cls, name: str, pat: str):
+    def __new__(cls, name: str, pat: str = None):
         if name not in cls._symbols:
             sym = super().__new__(cls)
             sym.name = name
-            sym.pat = f"(?P<{name}>{pat}"
+            sym.pat = f"(?P<{name}>{pat})"
             cls._symbols[name] = sym
         else:
+            # pat is None
             sym = cls._symbols[name]
         return sym
 
@@ -29,7 +30,7 @@ class Symbol:
 
     @classmethod
     def masterpat(cls) -> str:
-        return "|".join(cls._symbols.values())
+        return "|".join(val.pat for val in cls._symbols.values())
 
 
 class Token:
@@ -44,7 +45,7 @@ class Token:
             return NotImplemented
 
     def __repr__(self):
-        return f"{type(self).__name__}({repr(self.sym)}, {self.val})"
+        return f"{type(self).__name__}({repr(self.sym)}, {self.val!r})"
 
 
 NUM = Symbol("NUM", r"\d+")
